@@ -10,29 +10,23 @@ import (
 )
 
 func main() {
-	var appName string
-
 	rootCmd := &cobra.Command{
-		Use:   "notify-send",
-		Short: "Send a desktop notification",
+		Use:   "notify-send <summary> [body]",
+		Short: "a program to send desktop notifications",
 		RunE: func(_ *cobra.Command, args []string) error {
-			beeep.AppName = appName
-
-			if len(args) == 0 {
+			switch len(args) {
+			case 0:
 				return errors.New("No summary specified.")
+			case 1:
+				return beeep.Notify(args[0], "", "")
+			default:
+				return beeep.Notify(args[0], args[1], "")
 			}
-			summary := args[0]
-
-			body := ""
-			if len(args) > 1 {
-				body = args[1]
-			}
-
-			return beeep.Notify(summary, body, "")
 		},
+		SilenceUsage: true,
 	}
 
-	rootCmd.Flags().StringVarP(&appName, "app-name", "a", "notify-send", "Specifies the app name for the notification.")
+	rootCmd.Flags().StringVarP(&beeep.AppName, "app-name", "a", "notify-send", "Specifies the app name for the notification.")
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
