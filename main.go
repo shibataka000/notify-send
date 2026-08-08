@@ -1,3 +1,4 @@
+// Package main provides a CLI tool to send desktop notifications.
 package main
 
 import (
@@ -14,7 +15,7 @@ func main() {
 	rootCmd := &cobra.Command{
 		Use:   "notify-send",
 		Short: "Send a desktop notification",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			return beeep.Notify(appName, strings.Join(args, " "), "")
 		},
 	}
