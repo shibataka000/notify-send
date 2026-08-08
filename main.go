@@ -10,6 +10,8 @@ import (
 )
 
 func main() {
+	var icon string
+
 	rootCmd := &cobra.Command{
 		Use:   "notify-send <summary> [body]",
 		Short: "a program to send desktop notifications",
@@ -18,15 +20,16 @@ func main() {
 			case 0:
 				return errors.New("No summary specified.")
 			case 1:
-				return beeep.Notify(args[0], "", "")
+				return beeep.Notify(args[0], "", icon)
 			default:
-				return beeep.Notify(args[0], args[1], "")
+				return beeep.Notify(args[0], args[1], icon)
 			}
 		},
 		SilenceUsage: true,
 	}
 
 	rootCmd.Flags().StringVarP(&beeep.AppName, "app-name", "a", "notify-send", "Specifies the app name for the notification.")
+	rootCmd.Flags().StringVarP(&icon, "icon", "i", "", "Specifies an icon filename to display.")
 
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
