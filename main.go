@@ -18,7 +18,7 @@ func main() {
 		RunE: func(_ *cobra.Command, args []string) error {
 			switch len(args) {
 			case 0:
-				return errors.New("No summary specified.")
+				return errors.New("no summary specified")
 			case 1:
 				return beeep.Notify(args[0], "", icon)
 			default:
