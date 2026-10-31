@@ -3,7 +3,7 @@ module github.com/shibataka000/notify-send
 go 1.26.5
 
 require (
-	github.com/gen2brain/beeep v0.11.2
+	github.com/gen2brain/beeep v0.11.3
 	github.com/spf13/cobra v1.10.2
 )
 
